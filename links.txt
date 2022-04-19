@@ -1,0 +1,8 @@
+php My Admin:
+http://localhost:8081/phpmyadmin/index.php?route=/database/structure&server=1&db=final_project
+
+Local:
+http://localhost:8081/Khamis_AM_Final_Project/
+
+Dashboard:
+http://localhost:8081/Khamis_AM_Final_Project/Admin/Index.php
