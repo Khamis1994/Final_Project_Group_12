@@ -9,11 +9,25 @@
    if(isset($_GET['id'])){
     $query_2 ="SELECT * FROM product WHERE Category_Id={$_GET['id']} "; // ORDER BY Product_Id ASC
     $result_2=mysqli_query($Conn,$query_2);
-   } 
+    $row=mysqli_num_rows($result_2); } 
    else {
     $query_2="SELECT * FROM product ";
-    $result_2= mysqli_query($Conn,$query_2);}
+    $result_2= mysqli_query($Conn,$query_2);
+    $row=mysqli_num_rows($result_2);}
 
+    if(isset($_GET['id'])){
+        $query_c ="SELECT * FROM category WHERE Category_Id={$_GET['id']} "; // ORDER BY Product_Id ASC
+        $result_c=mysqli_query($Conn,$query_c);
+        while ($cate=mysqli_fetch_array($result_c)){
+        $cate_name=$cate["Category_Name"];}
+    }else {
+        $cate_name="All Product";}
+
+        
+
+
+
+?>
 
 ?>
    
@@ -23,7 +37,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>SHOP</h2>
+                        <h2><?php echo $cate_name;?></h2>
                     </div>
                 </div>
             </div>
@@ -73,24 +87,7 @@
                             </div>
                         </div>
 
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget price mb-50">
-                            <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Filter by</h6>
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">Price</p>
-
-                            <div class="widget-desc">
-                                <div class="slider-range">
-                                    <div data-min="0" data-max="3000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="3000" data-label-result="Range:">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                    <div class="range-price">Range: $00.00 - $3000.00</div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -101,21 +98,10 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span>150</span> products found</p>
+                                        <p><span>
+                                            <?php echo $row;?></span> products found</p>
                                     </div>
-                                    <!-- Sorting -->
-                                    <div class="product-sorting d-flex">
-                                        <p>Sort by:</p>
-                                        <form action="#" method="get">
-                                            <select name="select" id="sortByselect">
-                                                <option value="value">Highest Rated</option>
-                                                <option value="value">Newest</option>
-                                                <option value="value">Price: $$ - $</option>
-                                                <option value="value">Price: $ - $$</option>
-                                            </select>
-                                            <input type="submit" class="d-none" value="">
-                                        </form>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -155,18 +141,7 @@
                                 }}                           
                                 ?>
                         </div>
-                    <!-- Pagination -->
-                    <nav aria-label="navigation">
-                        <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">21</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </nav>
+                    
                 </div>
             </div>
         </div>
