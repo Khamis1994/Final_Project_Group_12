@@ -39,7 +39,7 @@ if(!isset($_SESSION['id'])){
 
 <body>
     <!-- ##### Header Area Start ##### -->
-    <header class="header_area" style="background-color: #365b6d; color: #f7f7f7;" >
+    <header class="header_area" style="background-color: #365b6d; color: #f7f7f7; height: 90px" >
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between" style="background-color: #365b6d; color: #f7f7f7;">
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav" style="background-color: #365b6d; color: #f7f7f7;">
@@ -136,9 +136,6 @@ if(!isset($_SESSION['id'])){
                             </li>
                             <li><a href="contact.php" style="background-color: #365b6d; color: #f7f7f7;">Contact</a></li>
                         </ul>
-                        <?php
-                echo $user_id;
-                ?>
                     </div>
                     <!-- Nav End -->
                 </div>
@@ -146,78 +143,63 @@ if(!isset($_SESSION['id'])){
 
             <!-- Header Meta Data -->
             <div class="header-meta d-flex clearfix justify-content-end">
-               
-              
-
-                <!-- User Login Info -->
-                <div class="classy-menu" style="background-color: #365b6d; color: #f7f7f7;">
-                    <!-- Nav Start -->
-                    <div class="classynav " style="background-color: #365b6d; color: #f7f7f7;">
-                        <ul>
+            <div class=" ">
+                 <div class=" "style="background-color: #365b6d; color: #f7f7f7; width:150px; position: absolute; right:2%; top:25%; ">
                             
-                            <?PHP if(!$user_id!=""){ ?> 
-                                <li>
-                                    <a href='login_User.php'style='background-color: #365b6d; color: #f7f7f7;'>
-                                        <div class="user-login-info" style="">
-                                            <img src='img/core-img/user.svg' width='22px' height='22px' style='background-color: #365b6d; color: #f7f7f7; display: block; margin-left: auto; margin-right: 20px;  margin-top: 32px;' >
-                                        </div>
-                                    </a>
-                                
-                                </li>
-                            <?PHP } else{ ?>
-                                <li>
-                                    <a href="#"style="background-color: #365b6d; color: #f7f7f7;">
-                                        <?PHP
+                    <div class="dropdown .col-md-3" style="background-color: #365b6d; color: #f7f7f7;">
+                        <button style="background-color: #365b6d; color: #f7f7f7; height:100%;" type="button" class="btn-sm m-r-50 btn dropdown-toggle" aria-labelledby="dropdownMenuButton" data-toggle="dropdown">
+                                    <?PHP if(!$user_id!=""){ ?> 
+                                        <a href='login_User.php'style='background-color: #365b6d; color: #f7f7f7;'>
+                                            <div class="  " style="">
+                                                <img src='img/core-img/user.svg' width='22px' height='22px' style='background-color: #365b6d; color: #f7f7f7; display: block; margin-left: auto; margin-right: 20px;  margin-top: 0px;' >
+                                            </div>
+                                        </a>
+                                    <?PHP } else{?>
+                                        <a href="#"style="background-color: #365b6d; color: #f7f7f7;">
+                                            <?PHP
+                                                $query="SELECT * FROM user Where User_Id={$_SESSION['id']}";
+                                                $result=mysqli_query($Conn,$query);
+                                                while($user=mysqli_fetch_assoc($result)){
+                                                    echo "<div class='' style='display: block; margin:0px;   padding: 0px;' >"  ;
+                                                    echo "<h6 style=' background-color: #365b6d; color: #f7f7f7; text-align: center;' >".$user['User_Name']."</h6>";
+                                                    echo "</div>"  ;
+                                                }
+                                            ?>
+                                        </a>
+                                    <?PHP } ?>
+                        </button>
+                        <div class="dropdown-menu">
+                                    <?php
+                                        if($user_id!=""){
                                             $query="SELECT * FROM user Where User_Id={$_SESSION['id']}";
                                             $result=mysqli_query($Conn,$query);
                                             while($user=mysqli_fetch_assoc($result)){
-                                                echo "<div class='user-login-info' style='display: block; margin:0px;   padding: 0px;' >"  ;
-                                                echo "<br><h6 style=' background-color: #365b6d; color: #f7f7f7; text-align: center; display: block; margin:0px;   padding: 0px;' >".$user['User_Name']."</h6>";
-                                                echo "</div>"  ;
+                                                echo "<h5 class='dropdown-item' style='font-weight: bold color: #365b6d;'>".$user['User_Name']."</h5>";
                                             }
+                                        }
+                                        if($user_id!=""){
+                                            $query="SELECT * FROM user Where User_Id={$_SESSION['id']}";
+                                            $result=mysqli_query($Conn,$query);
+                                            while($user=mysqli_fetch_assoc($result)){
+                                                echo "<h6 style=' color: #365b6d; font-weight: bold;'class='dropdown-item'>".$user['Email']."</h6>";
+                                            }
+                                        }
+                                    ?>
+                                    <?PHP if(!$user_id!=""){ ?> 
+                                        <a class="dropdown-item"  href="login_user.php" style=" color: #41c1ba; margin-left:22px; margin-Top:0px;" >Login</a>
+                                    <?PHP } if($user_id!=""){ ?>
+                                        <a class="dropdown-item"  href="logout.php" style=" color: #41c1ba; margin-left:22px; margin-Top:0px;" >Logout</a>
+                                    <?php } ?>
                                     
-                                        ?>
-                                    </a>
-                                    <div class="megamenu" style="background-color: #f7f7f7; color: #41c1ba; ">
-                                        <ul class='single-mega cn-col-3'>   
-                                            <li>
-                                                <?php
-                                                    if($user_id!=""){
-                                                        $query="SELECT * FROM user Where User_Id={$_SESSION['id']}";
-                                                        $result=mysqli_query($Conn,$query);
-                                                        while($user=mysqli_fetch_assoc($result)){
-                                                            echo "<h5 style='background-color: #f7f7f7; color: #365b6d;'>".$user['User_Name']."</h5>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </li>
-                                            <li>
-                                                <?php
-                                                    if($user_id!=""){
-                                                        $query="SELECT * FROM user Where User_Id={$_SESSION['id']}";
-                                                        $result=mysqli_query($Conn,$query);
-                                                        while($user=mysqli_fetch_assoc($result)){
-                                                            echo "<h6 style='background-color: #f7f7f7; color: #365b6d;'>".$user['Email']."</h6>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </li>
-                                            <li>
-                                                <?php if($user_id!=""){ ?>
-                                                <a href="logout.php" style=" color: #41c1ba;" >Logout</a>
-                                                <?php } ?>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            <?PHP } ?>
-                        </ul>
+                        </div>
                     </div>
                 </div>
+              </div>      
+                        
                                
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="checkout.php" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="checkout.php" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> </a>
                 </div>
             </div>
         </div>
