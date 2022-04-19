@@ -1,6 +1,5 @@
 <?php
    ob_start();  //FOR STOP REPEATE THE ACTION WHEN WE REFRASH
-   session_start();
 
    include('Includes/Header.php');
 ?>

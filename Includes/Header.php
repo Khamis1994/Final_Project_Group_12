@@ -1,5 +1,6 @@
 <?php
 
+Session_Start();
 require('Admin/Includes/Connection.php');
 if(!isset($_SESSION['id'])){
     

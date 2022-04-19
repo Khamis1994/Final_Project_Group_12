@@ -2,8 +2,7 @@
    ob_start();  //FOR STOP REPEATE THE ACTION WHEN WE REFRASH
    include('Includes/Header.php');
    
-   require('Admin/Includes/Connection.php'); 
-
+   
 ?>
 <div class="contact-area d-flex align-items-center">
 
