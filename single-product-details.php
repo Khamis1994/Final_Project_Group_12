@@ -1,38 +1,91 @@
 <?php
-   ob_start();  //FOR STOP REPEATE THE ACTION WHEN WE REFRASH
+session_start();
+ob_start();
+ require_once('admin/includes/connection.php');
+ include_once('includes/header.php');
+ $path = "../admin/images/";
+ $query = "SELECT * FROM product WHERE Product_Id = {$_GET['id1']}";
+ $result = mysqli_query($Conn , $query);
+ if (!isset($_SESSION['cart'])) {
+     $_SESSION['cart'] = array();
 
-   include('Includes/Header.php');
+ }
+ if(isset($_POST['addtocart'])){
+    $_SESSION['cart'][] = $_POST['addtocart'];
+
+
+ }
+ 
    
-   require('Admin/Includes/Connection.php'); 
+ 
 
-   if(isset($_GET['id1'])){
-    $query_2 ="SELECT * FROM product WHERE Product_Id={$_GET['id1']} "; // ORDER BY Product_Id ASC
-    $result_2=mysqli_query($Conn,$query_2);
-    $product=mysqli_fetch_assoc($result_2);
-   } 
+ 
+ //print_r($_SESSION);
 
 ?>
+
+
     <!-- ##### Single Product Details Area Start ##### -->
     <section class="single_product_details_area d-flex align-items-center">
+
         <!-- Single Product Thumb -->
-        <div class="single_product_thumb clearfix">
-            <img src="<?php echo "Admin/images/".$product["Product_Image"];?>" alt="Server Error">
-        </div>
+
+        
         <!-- Single Product Description -->
-        <div class="single_product_desc clearfix">
-            <h2><?php echo $product["Product_Name"];?></h2>
-            <p class="product-price"><?php echo $product["Price"]."$";?></p>
-            <p class="product-desc"><?php echo $product["Detalis"];?></p>
-            <!-- Form -->
-            <form class="cart-form clearfix" method="post">
+        <?php
+                $query = "SELECT * FROM product WHERE Product_Id={$_GET['id1']}";
+                $result = mysqli_query($Conn , $query);
+               while( $pro = mysqli_fetch_assoc($result)){
+                    echo "
+                    <div class='single_product_thumb clearfix'>
+            
+                <img src='admin/images/$pro[Product_Image]' style='width: 400px;'>
+            
+        </div>
+
+                    <div class='single_product_desc clearfix'>
+               
+           
+            <a href=''>
+                <h2>{$pro['Product_Name']}</h2>
+            </a>
+            <p class='product-price'> {$pro['Price']}$</p>
+           <p class='product-desc'> {$pro['Detalis']}</p>";
+}
+              ?>
+                
+                "<!-- Form -->
+            <form class='cart-form clearfix' method='post'>"
+                <!-- Select Box -->
+                <div class='select-box d-flex mt-50 mb-30'>
+                  
+                </div>
                 <!-- Cart & Favourite Box -->
-                <div class="cart-fav-box d-flex align-items-center">
+                <div class='cart-fav-box d-flex align-items-center'>
                     <!-- Cart -->
-                    <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+                    <?php $cartId= $_GET['id1'] ;
+                    
+                    echo "<button type='submit' name='addtocart' value=' $cartId ' class='btn essence-btn'>Add to cart</button>";
+                    ?>
+                    <!-- Favourite -->
+                    <div class='product-favourite ml-4'>
+                        <a href='' class='favme fa fa-heart'></a>
+                    </div>
                 </div>
             </form>
         </div>
+                            
+               
+        
     </section>
+    <!-- ##### Single Product Details Area End ##### -->
+
+    <?php
+   include_once('includes/footer.php');
+   ?>
+</body>
+
+</html>
     <!-- ##### Single Product Details Area End ##### -->
 
     
