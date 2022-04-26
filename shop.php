@@ -127,7 +127,7 @@
                                 ?>
                                 <h5 class="product-price" style="color:blue;" ><?php echo $product["Price"]."$";?></h5>
                                 <div class="row"><h6 style="margin-top: 6px; margin-left:15px; width:100px;">Quantity</h6><input type="text" name="quantity" class="form-control" value="1" style="width: 120px;"></div>
-                                <form method="post" action="shop.php?action=add&id=<?php echo $product["Product_Id"];?>">
+                                <form method="post" action="cart.php?action=add&id2=<?php echo $product["Product_Id"];?>">
                                     <input type="hidden" name="hidden_id" class="form-control" value="<?php echo $product["Product_Id"];?>">
                                     <input type="hidden" name="hidden_name" class="form-control" value="<?php echo $product["Product_Name"];?>">
                                     <input type="hidden" name="hidden_price" class="form-control" value="<?php echo $product["Price"];?>">

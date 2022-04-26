@@ -1,6 +1,5 @@
 <?php
 ob_start();
-Session_Start();
 require_once('admin/includes/connection.php');
 include_once('includes/header.php');
 $total=0;
@@ -83,84 +82,53 @@ table.GeneratedTable thead {
 </style>
 <br><br><br><br><br><br>
 <form class="checkout-form" method="POST">
-<?php 
-
- 
-
-echo "<center><table class='GeneratedTable'>";
-  echo "<thead>";
-    echo "<tr>";
-      echo "<th>name</th>";
-      echo "<th>E-mail</th>";
-      echo "<th>Total</th>";
-       
-
-    echo "</tr>";
-  echo "</thead>";
-  echo "<tbody>";
-    echo "<tr>";
-     if($_SESSION['id']!=""){
+  <?php 
+    echo "<center><table class='GeneratedTable'>";
+      echo "<thead style='background-color: #365b6d; color: #f7f7f7'>";
+        echo "<tr>";
+          echo "<th>Name</th>";
+          echo "<th>E-mail</th>";
+          echo "<th>Total</th>";
+        echo "</tr>";
+      echo "</thead>";
+      echo "<tbody>";
+        echo "<tr>";
+          if($_SESSION['id']!=""){
             $query = "SELECT * FROM user WHERE User_Id = {$_SESSION['id']}";
-                  $result = mysqli_query($Conn,$query);
-                while($cus = mysqli_fetch_assoc($result)){
-      echo "<td>{$cus['User_Name']}</td>";
-     // echo "<td>{$cus['phone']}</td>";
-      echo "<td>{$cus['Email']}</td>";
-      //echo "<td>{$cus['card_num']}</td>";
-      foreach ($_SESSION['cart'] as $key => $value ) {
-                      $cart= $_SESSION['cart'][$key];
-                      $arr=explode(",",$cart);
-                      $id=$arr[0];
-                      
-                      $query1="SELECT * FROM product where Product_Id=$id";
-
-                        $result1=mysqli_query($Conn,$query1);
-                      $pro=mysqli_fetch_assoc($result1);    
-                      
-                      
-                      $total = $total +$pro['Price'];
-                      $tax=0.16*$total;
-                      $tot_tax= $total + $tax ;
-            
-                    }
-      echo "<td>$$tot_tax</td>";
-      }}
-    echo "</tr>";
-  echo "</tbody>";
-
-echo "</table></center>";
-
-
-
-
-                    
-if (isset($_POST['placeorder'])){
- $qrr2=" INSERT INTO `order1`(`Customer_Id`, `Total`) VALUES ('$_SESSION[id]','$total')";
-
-                        // $qrr2 ="INSERT INTO order (customer_id, total) 
-                          // VALUES ('$_SESSION[log]','$total')";
-                          
-                         mysqli_query($Conn, $qrr2);
-
-                         
-                           
-
-                         unset($_SESSION['cart']);
-                         header("location:order.php");
-
-                    }
-
-
-
-?>
-
-
-<center><button class="site-btn btn-full" id="btn" name="placeorder">Place Order</button></center>
+            $result = mysqli_query($Conn,$query);
+            while($cus = mysqli_fetch_assoc($result)){
+              echo "<td>{$cus['User_Name']}</td>";
+              echo "<td>{$cus['Email']}</td>";
+              foreach ($_SESSION['cart'] as $key => $value ) {
+                $cart= $_SESSION['cart'][$key];
+                $arr=explode(",",$cart);
+                $id=$arr[0];
+                $query1="SELECT * FROM product where Product_Id=$id";
+                $result1=mysqli_query($Conn,$query1);
+                $pro=mysqli_fetch_assoc($result1);    
+                $total = $total +$pro['Price'];
+                $tax=0.16*$total;
+                $tot_tax= $total + $tax ;
+              }
+              $tax=0.16*$total;
+              $tot_tax= $total + $tax;
+              echo "<td>$$tot_tax</td>";
+            }
+          }
+        echo "</tr>";
+      echo "</tbody>";
+    echo "</table></center>";                    
+    if (isset($_POST['placeorder'])){
+      $qrr2=" INSERT INTO `order`(`Customer_Id`, `Total`) VALUES ('$_SESSION[id]','$total')";
+      mysqli_query($Conn, $qrr2);
+      unset($_SESSION['cart']);
+      header("location:order.php");
+    }
+  ?>
+<center><button class="site-btn btn-full" id="btn" name="placeorder" style=" background-color: #41c1ba; color: #365b6d ;">Place Order</button></center>
 <br><br><br><br><br>
 </form>
 
-<br><br><br><br><br><br>
-<br><br><br><br><br><br>
 <?php include_once('includes/footer.php') ?>
 </body>
 </html>

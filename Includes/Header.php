@@ -200,7 +200,7 @@ if(!isset($_SESSION['id'])){
                                
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="checkout.php" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> </a>
+                    <a href="cart.php" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> </a>
                 </div>
             </div>
         </div>
