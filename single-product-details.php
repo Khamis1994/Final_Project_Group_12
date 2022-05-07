@@ -1,5 +1,4 @@
 <?php
-session_start();
 ob_start();
  require_once('admin/includes/connection.php');
  include_once('includes/header.php');
@@ -85,10 +84,3 @@ ob_start();
    ?>
 </body>
 
-</html>
-    <!-- ##### Single Product Details Area End ##### -->
-
-    
-<?php
-    include('Includes/Footer.php');
-?>
